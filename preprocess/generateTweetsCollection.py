@@ -56,4 +56,5 @@ def build_document_term_matrix(file):
     return t_arr
 
 
+
 build_document_term_matrix('Data.txt')
