@@ -11,24 +11,20 @@ access_secret = "mQgnwMk2R1GTIpxlnq2wPwMkt3SjBRcPXjrtx0APDsVsV"
 def get_timeline(screen_name, number):
     """
         args: user name and how many tweets we need
+        return : array, ehch entry is a tweet
     """
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_key, access_secret)
     api = tweepy.API(auth)
+    tweet_array=[]
     try:
         tweets = api.user_timeline(screen_name=screen_name, count=number)
         for n in tweets:
+            tweet_array.append(n.text)
             print n.text
             print "\n"
     except:
         print "broken"
-    return tweets
+    return tweet_array
 
-
-#if (len(sys.argv) != 3):
-#    print 'Usage: timeline name number'
-#    print 'Such as python timeline cd_conrad 10'
-#    print 'print 10 timeline of cd_conrad'
-#else:
-#    tweets = get_timeline(sys.argv[1], sys.argv[2])
 

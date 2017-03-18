@@ -1,8 +1,8 @@
 #!/bin/usr/python
-
+import array
 from tweet import tweet
 
-class tweets_collection():
+class tweets_collection:
     def __init__(self):
         self.tweets = []
 
@@ -18,6 +18,9 @@ class tweets_collection():
 
         return tags
 
+
+    def get_tweets(self):
+        return self.tweets
 
     def getAllContent(self):
 
@@ -36,3 +39,8 @@ class tweets_collection():
             contents.append(x.getContent().lower)
 
         return contents
+
+
+
+
+#print create_document_term_vector(["very","good"],"very good very")
