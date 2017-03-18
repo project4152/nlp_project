@@ -1,7 +1,7 @@
 #!/bin/usr/python
 
 from generate_words_array import getAllWords
-from nlp_project.preprocess.tool_utility import *
+from preprocess.tool_utility import *
 from tweet import tweet
 from tweets_collection import tweets_collection
 
@@ -40,9 +40,20 @@ def createTweet(content):
     return t
 #generatorTweetsCollection("Data.txt")
 
-tweets = generatorTweetsCollection("Data.txt")
-t = tweets.get_tweets()
-words  = getAllWords()
-for x in t:
-    x.add_vector(words)
-    x.get_document_vector
+
+def build_document_term_matrix(file):
+    """
+    count term frequency for each document.
+    :param file:
+    :return: a complete tweet object
+    """
+    tweets = generatorTweetsCollection(file)
+    t_arr = tweets.get_tweets()
+    words = getAllWords()
+    for x in t_arr:
+        x.add_vector(words)
+
+    return t_arr
+
+
+build_document_term_matrix('Data.txt')

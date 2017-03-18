@@ -28,12 +28,11 @@ class tweet():
     def create_document_term_vector(self, words, tweet):
         length = len(words)
         words_array = tweet.split()
-        vector_array = array.array('i', (0 for i in range(0, length)))
+        vector_array = array.array("i", (0 for i in range(0, length)))
 
         for x in words_array:
             x = x.lower()
             if x in words:
-
                 num = words.index(x)
                 vector_array[num] += 1
         print vector_array

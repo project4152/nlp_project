@@ -1,10 +1,9 @@
 import subprocess
-
-from nlp_project.preprocess.tool_utility import getToken
+from preprocess.tool_utility import getToken
 
 
 def getAllWords():
-    subprocess.check_output(["./word_count.pl", "Data.txt"])
+    subprocess.check_output([ "perl", "./word_count.pl", "Data.txt"])
     all_words_array = getToken("words.txt")
 
     words_array = []
