@@ -4,7 +4,7 @@ class tweet_user():
         self.screen_name = screen_name
         self.decription = decription
         self.location = location
-        self.tweets = []
+        self.tweets_collection = []
 
     def add_tweets(self,tweets):
         self.tweets.append(tweets)

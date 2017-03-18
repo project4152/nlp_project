@@ -8,24 +8,24 @@ from tweets_collection import tweets_collection
 
 def generatorTweetsCollection(file):
     """
-    :return: tweetsCollection object
+    :param file: input is the tweet data file
+    :return: the tweets_collection object
     """
     data_array = getArrays(file)
-
-    length = len(data_array)
-
-    #Empty tweetCollection object
+    words = getAllWords()
+    #create a Empty tweetCollection object
     tc = tweets_collection()
 
     for x in data_array:
-        tc.addTweet(createTweet(x))
+        tw = createTweet(x,words)
+        tc.addTweet(tw)
 
-    #print tc.getAllTag()
+
     return tc
 
-def createTweet(content):
+def createTweet(content,words):
     """
-    :param content: first character is tag, followed is tweeet content
+    :param content: first character is tag, followed is tweeet content, words:
     :return:  tweet object
     """
     temp = content[:1]
@@ -35,14 +35,18 @@ def createTweet(content):
     else:
         tag = None
 
+    #
+    #need data preprocess in here
+    #
+
     t = tweet(tag=tag,content=content[2:])
+    t.add_vector(words)
 
     return t
 #generatorTweetsCollection("Data.txt")
 
+#example useage
 tweets = generatorTweetsCollection("Data.txt")
-t = tweets.get_tweets()
-words  = getAllWords()
-for x in t:
-    x.add_vector(words)
-    x.get_document_vector
+print tweets.getAllTag()
+for x in tweets.getAllVector():
+    print x
