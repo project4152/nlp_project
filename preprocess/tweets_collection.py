@@ -10,14 +10,16 @@ class tweets_collection:
         self.tweets.append(tweet)
 
     def getAllTag(self):
-
         tags = []
-
         for x in self.tweets:
             tags.append(x.getTag())
-
         return tags
 
+    def getAllVector(self):
+        vectors = []
+        for x in self.tweets:
+            vectors.append(x.get_document_vector())
+        return vectors
 
     def get_tweets(self):
         return self.tweets
@@ -32,15 +34,17 @@ class tweets_collection:
         return contents
 
     def getAllContentInLowerCase(self):
-
         contents = []
-
         for x in self.tweets:
             contents.append(x.getContent().lower)
 
         return contents
 
+    def __str__(self):
+        output=""
+        for x in self.tweets:
+            output.join(x)
+            output.join('\n')
 
+        return output
 
-
-#print create_document_term_vector(["very","good"],"very good very")
