@@ -45,7 +45,6 @@ def createTweet(content,words):
     return t
 #generatorTweetsCollection("Data.txt")
 
-
 #example useage
 tweets = generatorTweetsCollection("Data.txt")
 print tweets.getAllTag()
