@@ -12,7 +12,7 @@ def generatorTweetsCollection(file):
     :return: the tweets_collection object
     """
     data_array = getArrays(file)
-    words = getAllWords()
+    words = getAllWords(file)
     #create a Empty tweetCollection object
     tc = tweets_collection()
 
@@ -21,7 +21,10 @@ def generatorTweetsCollection(file):
         tc.addTweet(tw)
 
 
-    return tc
+    return {
+        "tweets_collection": tc,
+        "features": words
+    }
 
 def createTweet(content,words):
     """
@@ -46,7 +49,7 @@ def createTweet(content,words):
 #generatorTweetsCollection("Data.txt")
 
 #example useage
-tweets = generatorTweetsCollection("Data.txt")
-print tweets.getAllTag()
-for x in tweets.getAllVector():
-    print x
+# tweets = generatorTweetsCollection("Data.txt")
+# print tweets.getAllTag()
+# for x in tweets.getAllVector():
+#     print x
