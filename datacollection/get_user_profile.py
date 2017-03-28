@@ -16,4 +16,11 @@ def get_profile(screen_name):
         user_profile = api.get_user(screen_name)
     except:
         user_profile = "broken"
+
+    #print user_profile.id
+    #print user_profile.screen_name
+    #print user_profile.location
+    #print user_profile.description
     return user_profile
+
+get_profile("HalifaxVintage")

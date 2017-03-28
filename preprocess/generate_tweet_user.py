@@ -5,8 +5,12 @@ from tool_utility import readIn
 from datacollection.get_user_profile import get_profile
 
 
-def generatetweetuser():
-    buffer = readIn("../datacollection/tweets_json.txt")
+def generatetweetuser(inputfile):
+
+    if inputfile is None:
+        inputfile = "../datacollection/tweets_json.txt"
+
+    buffer = readIn(inputfile )
     data = json.loads(buffer)
     users = []
 
@@ -20,6 +24,6 @@ def generatetweetuser():
 
 
 #sample useage
-user = generatetweetuser()
+user = generatetweetuser(None)
 #for output it will print the user id, user's name, user's decription, user's loction, and user's tweets
 print user[0].__str__()

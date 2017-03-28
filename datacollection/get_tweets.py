@@ -13,18 +13,24 @@ def get_timeline(screen_name, number):
     api = tweepy.API(auth)
     try:
         tweets = api.user_timeline(screen_name=screen_name, count=number)
+        tweets_array=[]
         for n in tweets:
-            print n.text
-            print "\n"
+            content = n.text
+            content = content.encode('utf-8')
+            tweets_array.append(content)
     except:
         print "broken"
-    return tweets
+
+    return tweets_array
 
 
-if (len(sys.argv) != 3):
-    print 'Usage: timeline name number'
-    print 'Such as python timeline cd_conrad 10'
-    print 'print 10 timeline of cd_conrad'
-else:
-    tweets = get_timeline(sys.argv[1], sys.argv[2])
+
+
+
+#if (len(sys.argv) != 3):
+#    print 'Usage: timeline name number'
+#    print 'Such as python timeline cd_conrad 10'
+#    print 'print 10 timeline of cd_conrad'
+#else:
+#    tweets = get_timeline(sys.argv[1], sys.argv[2])
 
