@@ -21,4 +21,5 @@ def generatetweetuser():
 
 #sample useage
 user = generatetweetuser()
+#for output it will print the user id, user's name, user's decription, user's loction, and user's tweets
 print user[0].__str__()
