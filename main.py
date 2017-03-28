@@ -1,5 +1,5 @@
 from preprocess import *
-from datacollection import *
+from datacollection import read_json_example
 from svm import *
 from svm import svm_data_transform
 
@@ -15,8 +15,10 @@ def main(file):
     :param file:
     :return:
     """
-    svm_data_transform.train_svm_model(file)
-
+    (vectorizer, svm_model) = svm_data_transform.train_svm_model(file)
+    raw_tweets = read_json_example.tweets_collection("datacollection/tweets_json.txt")
+    tfidf_vector = vectorizer.transform(raw_tweets)
+    print svm_model.predict(tfidf_vector)[:100]
 
 if __name__ == "__main__":
     main("Data.txt")
