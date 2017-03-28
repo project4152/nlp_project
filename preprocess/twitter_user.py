@@ -7,5 +7,11 @@ class tweet_user():
         self.tweets_collection = []
 
     def add_tweets(self,tweets):
-        self.tweets.append(tweets)
+        self.tweets_collection.extend(tweets)
+
+    def __str__(self):
+        return self.userid,self.screen_name,self.decription,self.location,self.tweets_collection
+
+
+
 
