@@ -11,6 +11,8 @@ from nltk.corpus import stopwords
 from sklearn import metrics
 from svm import svm_model
 from nltk.stem import WordNetLemmatizer
+from sklearn.cluster import KMeans
+from sklearn.cluster import MiniBatchKMeans
 import numpy
 import pprint
 
