@@ -7,7 +7,7 @@ import sys
 
 def get_timeline(screen_name, number):
     config = {}
-    execfile("config.py", config)
+    execfile("datacollection/config.py", config)
     auth = tweepy.OAuthHandler(config["consumer_key"], config["consumer_secret"])
     auth.set_access_token(config["access_key"], config["access_secret"])
     api = tweepy.API(auth)

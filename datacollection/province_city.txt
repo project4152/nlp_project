@@ -1,0 +1,13 @@
+Alberta-Edmonton, Alberta
+British Columbia-Victoria, British Columbia
+Manitoba-Winnipeg, Manitoba
+New Brunswick-Fredericton, New Brunswick
+Newfoundland and Labrador-St. John's, Newfoundland and Labrador
+Nova Scotia-Halifax, Nova Scotia
+Prince Edward Island-Charlottetown, Prince Edward Island
+Quebec-Quebec City, Quebec
+Saskatchewan-Regina, Saskatchewan
+Northwest Territories-Yellowknife, Northwest Territories
+Nunavut-Iqaluit, Nunavut
+Yukon-Whitehorse, Yukon
+
