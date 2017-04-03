@@ -1,9 +1,13 @@
+from __future__ import division
 from preprocess import *
-from datacollection import read_json_example
+# from datacollection import read_json_example
 from datacollection import translate_geo
 from datacollection import search_geo
+from datacollection import read_json
 from svm import *
 from svm import svm_data_transform
+from generate_graph import generate_map
+import numpy
 
 
 def main(file):
@@ -17,22 +21,28 @@ def main(file):
     :param file:
     :return:
     """
-    province_city_map = translate_geo.translate("datacollection/province_city.txt")
-    city_tweets_map = dict()
-    city_tweets_tfidf_map = dict()
-    for (province, city) in province_city_map.items():
-        city_tweets_map[city] = search_geo.get_screen_name(city)
+
+    # store tweets retrieved from tweets api categorized by province
+    province_tweets_collection = read_json.read_formatted_tweets()
+
+
+    # train model
     (vectorizer, svm_model) = svm_data_transform.train_svm_model(file)
-    # raw_tweets = read_json_example.tweets_collection("datacollection/tweets_json.txt")
-    for (city, raw_tweets) in city_tweets_tfidf_map.items():
-        tfidf_vector = vectorizer.transform(raw_tweets)
-        city_tweets_tfidf_map[city] = tfidf_vector
 
-    city_positive_emotion_predict_map = dict()
-    for (city, tfidf_vector) in city_tweets_tfidf_map.items():
-        city_positive_emotion_predict_map[city] = svm_model.predict(tfidf_vector)
-        print city_positive_emotion_predict_map[city]
+    # intermediate stage as to store the transformed data by svm model
+    province_tweets_tfidf_map = dict()
+    for (province, tweets) in province_tweets_collection.items():
+        tfidf_vector = vectorizer.transform(tweets)
+        province_tweets_tfidf_map[province] = tfidf_vector
 
+    # predict the positiveness and negativeness of the input tweets
+    province_positive_emotion_predict_map = dict()
+    for(province, tfidf_vector) in province_tweets_tfidf_map.items():
+        prediction_vector = svm_model.predict(tfidf_vector)
+        unique, counts = numpy.unique(prediction_vector, return_counts=True)
+        unique_counts_map = dict(zip(unique, counts))
+        province_positive_emotion_predict_map[province] = unique_counts_map.get(1)/ len(prediction_vector)
 
+    generate_map.draw_map(province_positive_emotion_predict_map)
 if __name__ == "__main__":
     main("Data.txt")
