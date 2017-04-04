@@ -8,6 +8,7 @@ from svm import *
 from svm import svm_data_transform
 from generate_graph import generate_map
 import numpy
+import math
 
 
 def main(file):
@@ -41,7 +42,7 @@ def main(file):
         prediction_vector = svm_model.predict(tfidf_vector)
         unique, counts = numpy.unique(prediction_vector, return_counts=True)
         unique_counts_map = dict(zip(unique, counts))
-        province_positive_emotion_predict_map[province] = unique_counts_map.get(1)/ len(prediction_vector)
+        province_positive_emotion_predict_map[province] = round(unique_counts_map.get(1)/ len(prediction_vector), 2)
 
     generate_map.draw_map(province_positive_emotion_predict_map)
 if __name__ == "__main__":

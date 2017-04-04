@@ -8,6 +8,7 @@ import pprint
 import canada_abbr
 
 def draw_map(happiness_index_map):
+    vince.core.initialize_notebook()
     with open('generate_graph/canada.topo.json', 'r') as f:
         canada_json = json.load(f)
 
@@ -21,23 +22,12 @@ def draw_map(happiness_index_map):
     with open('generate_graph/canada.topo.json', 'w') as f:
         json.dump(canada_json, f)
 
-    #grab the province names and load them into a dataframe
-    # geometries = canada_json['objects']['collection']['geometries']
-    # province_names = [x['properties']['NAME'] for x in geometries]
-    # province_df = pd.DataFrame({'NAME': province_names}, dtype=str)
-    #
-    #translate province name into province code
-    # province_code_happiness_index_map = dict()
-    # for (province, happiness) in happiness_index_map.items():
-    #     province_code_happiness_index_map[canada_abbr.abbr_dict().get(province)] = happiness
 
     province_happiness_df = pd.DataFrame({'Province Name': happiness_index_map.keys(), "Happiness": happiness_index_map.values()})
     province_province_code_df = pd.DataFrame({"Province Name": canada_abbr.abbr_dict().keys(), "NAME": canada_abbr.abbr_dict().values()}, dtype=str)
     province_province_code_happiness_df = pd.merge(province_happiness_df, province_province_code_df, on="Province Name", how='inner')
-
     province_province_code_happiness_df = province_province_code_happiness_df.fillna(method='pad')
 
-    print province_province_code_happiness_df.head()
     province_topo = r'generate_graph/canada.topo.json'
 
     geo_data = [
@@ -51,26 +41,23 @@ def draw_map(happiness_index_map):
     #create map of canada, color coded based upon on the positive happiness index
     vis = vince.Map(data=province_province_code_happiness_df,
                     geo_data=geo_data,
-                    scale=1100,
-                    projection='albersUsa',
+                    scale=400,
                     data_bind='Happiness',
                     data_key='NAME',
                     map_key={
                         'provinces': 'properties.NAME'
-                    })
+                    },
+                    width=600,
+                    height=200,
+                    brew="Oranges")
     vis.marks[0].properties.enter.stroke_opacity = vince.ValueRef(value=0.5)
-    vis.scales['color'].type= 'threshold'
-
+    vis.scales['color'].type = 'threshold'
+    happiness_index_list = happiness_index_map.values()
+    max_happiness_index = max(happiness_index_list)
+    min_happiness_index = min(happiness_index_list)
+    diff = round((max_happiness_index - min_happiness_index) / 8, 2)
+    vis.scales['color'].domain = [round((x * diff + min_happiness_index),2) for x in range(len(happiness_index_list) - 1) ]
     vis.legend(title='Hapiness by Provinces')
-    display(HTML(vis.display()))
-
-    world_topo = r'generate_graph/world-countries.topo.json'
-    geo_data = [{'name': 'countries',
-                 'url': world_topo,
-                 'feature': 'world-countries'}]
-
-    vis = vince.Map(geo_data=geo_data, scale=200)
-    display(HTML(vis.display()))
-    vis.to_json('Canada Happiness.json')
+    vis.display()
 
 
