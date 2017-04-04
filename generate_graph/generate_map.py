@@ -1,3 +1,5 @@
+from IPython.core.display import HTML
+from IPython.display import display
 import pandas as pd
 import vincent  as vince
 import json
@@ -34,6 +36,8 @@ def draw_map(happiness_index_map):
     province_province_code_happiness_df = pd.merge(province_happiness_df, province_province_code_df, on="Province Name", how='inner')
 
     province_province_code_happiness_df = province_province_code_happiness_df.fillna(method='pad')
+
+    print province_province_code_happiness_df.head()
     province_topo = r'generate_graph/canada.topo.json'
 
     geo_data = [
@@ -58,6 +62,15 @@ def draw_map(happiness_index_map):
     vis.scales['color'].type= 'threshold'
 
     vis.legend(title='Hapiness by Provinces')
+    display(HTML(vis.display()))
+
+    world_topo = r'generate_graph/world-countries.topo.json'
+    geo_data = [{'name': 'countries',
+                 'url': world_topo,
+                 'feature': 'world-countries'}]
+
+    vis = vince.Map(geo_data=geo_data, scale=200)
+    display(HTML(vis.display()))
     vis.to_json('Canada Happiness.json')
 
 

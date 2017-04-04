@@ -2,80 +2,15 @@
   "axes": [],
   "data": [
     {
-      "name": "table",
-      "values": [
-        {
-          "x": "BC",
-          "y": 0.6990909090909091
-        },
-        {
-          "x": "NL",
-          "y": 0.7244205404021001
-        },
-        {
-          "x": "SK",
-          "y": 0.7140939597315437
-        },
-        {
-          "x": "PE",
-          "y": 0.733489187609585
-        },
-        {
-          "x": "NS",
-          "y": 0.7234133790737565
-        },
-        {
-          "x": "QC",
-          "y": 0.6508495648570245
-        },
-        {
-          "x": "AB",
-          "y": 0.7051569506726457
-        },
-        {
-          "x": "MB",
-          "y": 0.6990909090909091
-        },
-        {
-          "x": "NT",
-          "y": 0.7013495864170657
-        },
-        {
-          "x": "NB",
-          "y": 0.7435028248587571
-        },
-        {
-          "x": "NU",
-          "y": 0.7078899082568807
-        },
-        {
-          "x": "YT",
-          "y": 0.6958740961293067
-        }
-      ]
-    },
-    {
       "format": {
-        "feature": "collection",
+        "feature": "world-countries",
         "type": "topojson"
       },
-      "name": "provinces",
+      "name": "countries",
       "transform": [
         {
-          "as": "value",
-          "default": "noval",
-          "key": "data.properties.NAME",
-          "type": "zip",
-          "with": "table",
-          "withKey": "data.x"
-        },
-        {
-          "test": "d.path!='noval' && d.value!='noval'",
-          "type": "filter"
-        },
-        {
-          "projection": "albersUsa",
-          "scale": 1100,
+          "projection": "winkel3",
+          "scale": 200,
           "translate": [
             480,
             250
@@ -84,22 +19,15 @@
           "value": "data"
         }
       ],
-      "url": "generate_graph/canada.topo.json"
+      "url": "generate_graph/world-countries.topo.json"
     }
   ],
   "height": 500,
-  "legends": [
-    {
-      "fill": "color",
-      "offset": 0,
-      "properties": {},
-      "title": "Hapiness by Provinces"
-    }
-  ],
+  "legends": [],
   "marks": [
     {
       "from": {
-        "data": "provinces"
+        "data": "countries"
       },
       "properties": {
         "enter": {
@@ -108,15 +36,11 @@
           },
           "stroke": {
             "value": "#000000"
-          },
-          "strokeOpacity": {
-            "value": 0.5
           }
         },
         "update": {
           "fill": {
-            "field": "value.data.y",
-            "scale": "color"
+            "value": "steelblue"
           }
         }
       },
@@ -124,26 +48,6 @@
     }
   ],
   "padding": "auto",
-  "scales": [
-    {
-      "domain": [
-        0.6508495648570245,
-        0.7379953243717124
-      ],
-      "name": "color",
-      "range": [
-        "#f7fcf0",
-        "#e0f3db",
-        "#ccebc5",
-        "#a8ddb5",
-        "#7bccc4",
-        "#4eb3d3",
-        "#2b8cbe",
-        "#0868ac",
-        "#084081"
-      ],
-      "type": "threshold"
-    }
-  ],
+  "scales": [],
   "width": 960
 }
