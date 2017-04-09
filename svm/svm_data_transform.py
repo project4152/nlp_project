@@ -66,7 +66,7 @@ def train_svm_model(file):
 
     svm.train_model(training_tfidf, training_classes)
     test_results = svm.predict(test_tfidf)
-    print "accuracy score: " + str(metrics.accuracy_score(expected_test_classes, test_results)) + "\n"
+    # print "accuracy score: " + str(metrics.accuracy_score(expected_test_classes, test_results)) + "\n"
     return (vect, svm)
     # pprint.pprint(test_results)
 
